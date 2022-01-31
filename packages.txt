@@ -1,0 +1,13 @@
+bash
+curl
+locales
+zip
+
+default-jre
+julia
+lua5.3
+ocaml
+perl
+python3.9
+vim
+nodejs

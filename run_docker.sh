@@ -1,0 +1,1 @@
+docker run -it --rm --workdir /workspace --mount type=bind,source=`pwd`,target=/workspace csc_contest_2021

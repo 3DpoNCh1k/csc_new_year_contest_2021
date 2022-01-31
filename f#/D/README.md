@@ -1,0 +1,1 @@
+# [D](https://stepik.org/lesson/620177/step/4?unit=615697)

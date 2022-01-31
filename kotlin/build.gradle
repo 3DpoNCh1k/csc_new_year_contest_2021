@@ -1,0 +1,62 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'java'
+}
+
+group 'org.example'
+version '1.0'
+
+
+sourceSets {
+    mySS {
+        java {
+            srcDir("A")
+        }
+        kotlin {
+            srcDir("A")
+        }
+    }
+    myTest {
+        kotlin {
+            srcDir("tests")
+        }
+        compileClasspath += mySS.runtimeClasspath
+        runtimeClasspath += mySS.runtimeClasspath
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.kotlin.link" }
+}
+
+dependencies {
+    mySSImplementation "org.jetbrains.kotlin:kotlin-stdlib"
+    myTestImplementation 'io.kotest:kotest-runner-junit5:5.0.1'
+    myTestImplementation "org.jetbrains.kotlin:kotlin-stdlib"
+    
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    api("space.kscience:kmath-stat:0.3.0-dev-8")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+configurations {
+    myTestImplementation.extendsFrom(testImplementation)
+    myTestImplementation.extendsFrom(mySSImplementation)
+
+    myTestRuntimeOnly.extendsFrom(testRuntimeOnly)
+    myTestRuntimeOnly.extendsFrom(mySSRuntimeOnly)
+}
+
+task myTestTask(type: Test) {
+    description = "Run my tests"
+    group = "verification"
+    testClassesDirs = sourceSets.myTest.output.classesDirs
+    classpath = sourceSets.myTest.runtimeClasspath
+    useJUnitPlatform()
+}
+

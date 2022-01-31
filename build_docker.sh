@@ -1,0 +1,1 @@
+docker build -t csc_contest_2021 .
